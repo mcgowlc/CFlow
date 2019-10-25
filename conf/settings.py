@@ -27,7 +27,7 @@ SECRET_KEY = 'p-&&$kvveg-3^ckzvvj*h#^geepdf(t8=qh3d715#c81zcvaga'
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1',
-'your-app-name-goes-here.herokuapp.com',
+'final-project-10-1.herokuapp.com',
 'localhost',]
 
 

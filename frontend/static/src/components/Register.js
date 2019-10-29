@@ -32,13 +32,14 @@ class Register extends React.Component {
 
         axios({
             method: 'POST',
-            url: '/rest-auth/registration/',
+            url: '/api/v1/rest-auth/registration/',
             data: this.state
         })
             .then(res => {
                 console.log(res);
                 // save the token we get back once we successfully login to localStorage
                 localStorage.setItem('token', res.data.key);
+                this.props.history.push('/schedule');
             })
             .catch(error => {
                 console.log(error);

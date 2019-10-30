@@ -1,12 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {ReactBootstrap, Table} from 'react-bootstrap-table';
 
 import BaseLayout from './components/BaseLayout';
 import Login from './components/Login';
 import Register from './components/Register';
+import Home from './components/Home';
+import JobList from './components/JobList';
+import JobItem from './components/JobItem';
+import JobAdd from './components/JobAdd';
+import JobEdit from './components/JobEdit';
+import JobDetail from './components/JobDetail';
 
 
 
@@ -16,6 +24,11 @@ ReactDOM.render(<BrowserRouter>
       <Switch>
           <Route path="/accounts/login" component={Login}/>
           <Route path="/accounts/register" component={Register}/>
+          <Route path="/home" component={Home}/>
+          <Route path="/schedule/" component={JobList}/>
+          <Route path="/job/add/" component={JobAdd} />
+          <Route path="/jobs/edit/" component={JobEdit} />
+          <Route path="/jobs/detail/:id/" component={JobDetail}/>
       </Switch>
   </BaseLayout>
 </BrowserRouter>, document.getElementById('root'));

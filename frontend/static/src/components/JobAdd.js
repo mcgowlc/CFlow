@@ -23,7 +23,7 @@ class JobAdd extends React.Component {
             supervisor: '',
             supervisors: [],
             availableEmployees: [],
-            availableMaterials: []
+            availableMaterials: [],
         }
     }
 

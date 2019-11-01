@@ -1,63 +1,84 @@
 import React from 'react';
-import {Carousel} from 'react-bootstrap';
+import JobItem from './JobItem';
+import {Table} from 'react-bootstrap';
 
+import axios from 'axios';
+// axios.defaults.xsrfCookieName = 'csrftoken';
+// axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
-import '../App.css';
+const BASE_URL = process.env.REACT_APP_BASE_URL
 
+class JobList extends React.Component {
 
-function Home(props) {
+  constructor(props) {
+    super(props);
 
-    // function based components use props instead of this.props
-    // class based components you call this.props
+    this.state = {
+        jobs: [],
+        status:"",
+    }
+  }
 
-    return (
-        <div>
+  componentDidMount() {
+    this.getJobs();
+  }
 
-            {/*{props.children}*/}
+  getJobs = () => {
+    axios.get(`${BASE_URL}/api/v1/jobs/`)
+      .then(response => {
+        console.log('response', response.data);
+        this.setState({jobs: response.data});
+      });
+      // .catch(error => {
+      //   console.log('Oops, something went wrong', error);
+    // })
+  }
 
-            <Carousel className="container">
-                <Carousel>
-                    <Carousel.Item >
-                        <img
-                            className=" carousel-image"
-                            src="https://gravityjack.com/wp-content/uploads/2016/08/mobile-app-communication.jpg"
-                            alt="First slide"
-                        />
-                        <Carousel.Caption>
+  updateStatus = (status, job) => {
+      axios.patch(`${BASE_URL}/api/v1/jobs/${job.id}`,{status:status})
+      .then(response => {
+        console.log('update sent', response.data);
+        let jobs = [...this.state.jobs];
+        let index = jobs.indexOf(job);
 
-                            <p>REAL TIME COMMUNICATION AT YOUR FINGERTIPS</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item >
-                        <img
-                            className="d-block w-100 carousel-image"
-                            src="https://integratedwork.com/wp-content/uploads/2018/05/Ideas-e1527025600841.png"
-                            alt="Third slide"
+        jobs[index].status = status;
+        this.setState({jobs});
 
-                        />
+        if(status === 'complete'){
+            axios.post(`${BASE_URL}/api/v1/twiliocall/`)
+                .then(function (response) {
+                    console.log(response);
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+        }
+      })
+      .catch(error => {
+        console.log('Oops, something went wrong', error);
+      })
+  }
 
-                        <Carousel.Caption>
-                            {/*<h3>Second slide label</h3>*/}
-                            {/*<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>*/}
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item >
-                        <img
-                            className="d-block w-100 carousel-image"
-                            src="https://integratedwork.com/wp-content/uploads/2018/05/Communications-Flow-Graphic.png"
-                            alt="Third slide"
-                        />
+  render() {
+    let rows = this.state.jobs.map((job, index) => {
+      return <JobItem key={job.id} job={job} index={index + 1} updateStatus={this.updateStatus}/>
+    });
 
-                        <Carousel.Caption>
-                            {/*<h3>Third slide label</h3>*/}
-                            {/*<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>*/}
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                </Carousel>
-            </Carousel>
-        </div>
-    )
+    return(<Table responsive>
+              <thead className="head-item">
+                <tr className="ttr">
+                  <th>#</th>
+                  <th>Start Date</th>
+                  <th>Location</th>
+                  <th>Supervisor</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows}
+              </tbody>
+              </Table>)
+  }
 }
 
-
-export default Home;
+export default JobList;

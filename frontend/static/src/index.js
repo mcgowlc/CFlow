@@ -26,7 +26,7 @@ ReactDOM.render(<BrowserRouter>
           <Route path="/accounts/register" component={Register}/>
           <Route path="/home" component={Home}/>
           <Route path="/schedule/" component={JobList}/>
-          <Route path="/job/add/" component={JobAdd} />
+          <Route path="/job/new/" component={JobAdd} />
           <Route path="/jobs/edit/" component={JobEdit} />
           <Route path="/jobs/detail/:id/" component={JobDetail}/>
       </Switch>

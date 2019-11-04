@@ -6,7 +6,7 @@ import axios from 'axios';
 // axios.defaults.xsrfCookieName = 'csrftoken';
 // axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL
+// const BASE_URL = process.env.REACT_APP_BASE_URL
 
 class JobList extends React.Component {
 
@@ -14,8 +14,7 @@ class JobList extends React.Component {
     super(props);
 
     this.state = {
-        jobs: [],
-        status:"",
+        jobs: []
     }
   }
 
@@ -24,18 +23,18 @@ class JobList extends React.Component {
   }
 
   getJobs = () => {
-    axios.get(`${BASE_URL}/api/v1/jobs/`)
+    axios.get(`/api/v1/jobs/`)
       .then(response => {
-        console.log('response', response.data);
+        // console.log('response', response.data);
         this.setState({jobs: response.data});
-      });
-      // .catch(error => {
-      //   console.log('Oops, something went wrong', error);
-    // })
+      })
+      .catch(error => {
+        console.log('Oops, something went wrong', error);
+    });
   }
 
   updateStatus = (status, job) => {
-      axios.patch(`${BASE_URL}/api/v1/jobs/${job.id}`,{status:status})
+      axios.patch(`/api/v1/jobs/${job.id}`,{status:status})
       .then(response => {
         console.log('update sent', response.data);
         let jobs = [...this.state.jobs];
@@ -45,7 +44,7 @@ class JobList extends React.Component {
         this.setState({jobs});
 
         if(status === 'complete'){
-            axios.post(`${BASE_URL}/api/v1/twiliocall/`)
+            axios.post(`/api/v1/twiliocall/`)
                 .then(function (response) {
                     console.log(response);
                   })
@@ -60,8 +59,9 @@ class JobList extends React.Component {
   }
 
   render() {
-    let rows = this.state.jobs.map((job, index) => {
-      return <JobItem key={job.id} job={job} index={index + 1} updateStatus={this.updateStatus}/>
+    console.log('job list component');
+    let rows = this.state.jobs.map((job) => {
+      return <JobItem key={job.id} job={job} updateStatus={this.updateStatus}/>
     });
 
     return(<Table responsive>

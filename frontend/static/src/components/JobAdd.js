@@ -120,7 +120,7 @@ class JobAdd extends React.Component {
 
     render() {
 
-        console.log('state', this.state)
+        console.log('state', this.state);
 
         let supervisors = this.state.supervisors.map(supervisor => (
             <Dropdown.Item name="supervisor" onClick={(e) => this.handleSelection(e, supervisor)}>{supervisor.first_name + " " + supervisor.last_name}</Dropdown.Item>
@@ -131,6 +131,7 @@ class JobAdd extends React.Component {
         return (
 
         <div className="add-job-form">
+        here i am
             <Row>
                 <Col md={4}>
             <form onSubmit={this.handleSubmit}>

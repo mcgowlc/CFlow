@@ -24,11 +24,11 @@ ReactDOM.render(<BrowserRouter>
       <Switch>
           <Route path="/accounts/login" component={Login}/>
           <Route path="/accounts/register" component={Register}/>
-          <Route path="/home" component={Home}/>
           <Route path="/schedule/" component={JobList}/>
-          <Route path="/job/new/" component={JobAdd} />
+          <Route path="/jobs/new/" component={JobAdd} />
           <Route path="/jobs/edit/" component={JobEdit} />
           <Route path="/jobs/detail/:id/" component={JobDetail}/>
+          <Route exact path="/" component={Home}/>
       </Switch>
   </BaseLayout>
 </BrowserRouter>, document.getElementById('root'));

@@ -12,7 +12,7 @@ function BaseLayout(props) {
         <div>
             <div className="nav">
                 <ul className="nav-bar">
-                    <NavLink className="nav-link" to="/home">Home Page</NavLink>
+                    <NavLink className="nav-link" to="/">Home Page</NavLink>
                     {/*<NavLink className="nav-link" to="/accounts/register">Register</NavLink>*/}
                     <NavLink className="nav-link" to="/accounts/login">Login</NavLink>
                     <NavLink className="nav-link" to="/schedule">Schedule</NavLink>

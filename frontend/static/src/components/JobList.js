@@ -3,8 +3,9 @@ import JobItem from './JobItem';
 import {Table} from 'react-bootstrap';
 
 import axios from 'axios';
-// axios.defaults.xsrfCookieName = 'csrftoken';
-// axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 // const BASE_URL = process.env.REACT_APP_BASE_URL
 
@@ -23,7 +24,7 @@ class JobList extends React.Component {
   }
 
   getJobs = () => {
-    axios.get(`/api/v1/jobs/`)
+    axios.get(`/api/v1/jobs/`, {headers: {'Authorization': `Token ${localStorage.getItem('token')}`}})
       .then(response => {
         // console.log('response', response.data);
         this.setState({jobs: response.data});
@@ -59,7 +60,7 @@ class JobList extends React.Component {
   }
 
   render() {
-    console.log('job list component');
+    console.log('joblist component');
     let rows = this.state.jobs.map((job) => {
       return <JobItem key={job.id} job={job} updateStatus={this.updateStatus}/>
     });

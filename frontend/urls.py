@@ -10,5 +10,6 @@ urlpatterns = [
     path('schedule/', IndexView.as_view()),
     path('jobs/new/', IndexView.as_view()),
     path('jobs/edit/', IndexView.as_view()),
-    path('jobs/detail/:id/', IndexView.as_view()),
+    path('jobs/detail/<int:pk>/', IndexView.as_view()),
+    path('accounts/login/', IndexView.as_view()),
 ]

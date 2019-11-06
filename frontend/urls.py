@@ -6,4 +6,9 @@ app_name = 'frontend'
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
+    path('home/', IndexView.as_view()),
+    path('schedule/', IndexView.as_view()),
+    path('jobs/new/', IndexView.as_view()),
+    path('jobs/edit/', IndexView.as_view()),
+    path('jobs/detail/:id/', IndexView.as_view()),
 ]

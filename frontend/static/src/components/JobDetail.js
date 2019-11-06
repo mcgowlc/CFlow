@@ -73,7 +73,7 @@ class JobDetail extends React.Component {
     }
 
     getJob = () => {
-        axios.get(`${BASE_URL}/api/v1/jobs/${this.props.match.params.id}`)
+        axios.get(`/api/v1/jobs/${this.props.match.params.id}`)
             .then(response =>  {
                 // handle success
                 // console.log(response);

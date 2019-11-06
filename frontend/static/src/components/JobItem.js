@@ -18,7 +18,7 @@ class JobItem extends React.Component {
       super(props);
 
       this.state = {
-          status: "Not Started"
+          status: ''
       }
 
 

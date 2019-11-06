@@ -34,7 +34,7 @@ class JobList extends React.Component {
   }
 
   updateStatus = (status, job) => {
-      axios.patch(`/api/v1/jobs/${job.id}`,{status:status})
+      axios.patch(`/api/v1/jobs/${job.id}/`,{status:status})
       .then(response => {
         console.log('update sent', response.data);
         let jobs = [...this.state.jobs];
@@ -43,7 +43,7 @@ class JobList extends React.Component {
         jobs[index].status = status;
         this.setState({jobs});
 
-        if(status === 'complete'){
+        if(status === 'in progress, complete'){
             axios.post(`/api/v1/twiliocall/`)
                 .then(function (response) {
                     console.log(response);

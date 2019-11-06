@@ -24,7 +24,8 @@ class JobEdit extends React.Component {
     }
 
     getJob = () => {
-        axios.get(`/api/v1/jobs/${this.props.match.params.id}`)
+        // axios.get(`/api/v1/jobs/${this.props.match.params.id}`)
+        axios.get(`/api/v1/jobs/1`)
             .then(response =>  {
                 // handle success
                 // console.log(response);
@@ -77,7 +78,7 @@ class JobEdit extends React.Component {
             <div className="job_edit">
                 <Row>
                     <Col md={4}>
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} autocomplete="off">
                 <h4>Edit</h4>
                 <input type="text" name="location" placeholder="Location" value={this.state.location} onChange={this.handleInput} name="location"/>
                 <br/>

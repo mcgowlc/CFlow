@@ -75,50 +75,6 @@ button {
   position: relative;
 }
 
-/* .hero2 {
-  position: relative;
-  background: url('images/brick.jpg') no-repeat center center fixed;
-  height: 100vh;
-
-   -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-.hero2:before {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(96, 102, 102, .1);
-  content: "";
-}
-
-.hero{
-    position: relative;
-    background: url('images/const.jpeg') no-repeat center center fixed;
-    height: 100vh;
-
-
-     -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-
-.hero:before {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(96 , 102, 102, .1);
-    content: "";
-} */
-
 
 .login-form{
   position: relative;

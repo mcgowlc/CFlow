@@ -25,7 +25,7 @@ class JobEdit extends React.Component {
 
     getJob = () => {
         // axios.get(`/api/v1/jobs/${this.props.match.params.id}`)
-        axios.get(`/api/v1/jobs/1`)
+        axios.get(`/api/v1/jobs/3`)
             .then(response =>  {
                 // handle success
                 // console.log(response);

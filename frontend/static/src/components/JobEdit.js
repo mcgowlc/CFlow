@@ -45,8 +45,8 @@ class JobEdit extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-
-        axios.put(`/api/v1/jobs/${this.state.id}`, this.state)
+        // axios.put(`/api/v1/jobs/${this.state.id}`, this.state)
+        axios.put(`/api/v1/jobs/3`, this.state)
             .then(response =>  {
                 // handle success
                 let data = Object.assign(this.state, response.data);

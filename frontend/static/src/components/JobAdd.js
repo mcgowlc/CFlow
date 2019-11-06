@@ -171,7 +171,7 @@ class JobAdd extends React.Component {
             </Row>
             <Row className="boxImg">
                  <Col md={6}>
-                <img className="imgLeft"  src="https://blogin.co/uploads/images/naslovna.png" />
+                <img className="imgLeft"  src="https://osmaviation.com/app/uploads/2018/06/Crew-management_shnsrx.png" />
                  </Col>
                  <Col md={6}>
                 <img className="imgRight"  src="https://blogin.co/uploads/images/naslovna.png" />

@@ -22,7 +22,7 @@ class JobAdd extends React.Component {
             employee_assigned: '',
             supervisor: '',
             supervisors: [],
-            availableEmployees: [],
+            employees: [],
             availableMaterials: [],
         }
     }
@@ -94,7 +94,7 @@ class JobAdd extends React.Component {
     getEmployees = () => {
         axios.get(`/api/v1/employees/`, {headers: {'Authorization': `Token ${localStorage.getItem('token')}`}})
           .then(response => {
-            this.setState({availableEmployees: response.data});
+            this.setState({employees: response.data});
           })
           .catch(error => {
             console.log('Oops, something went wrong', error);
@@ -127,13 +127,13 @@ class JobAdd extends React.Component {
 
         let supervisors = this.state.supervisors.map(supervisor => (
             <Dropdown.Item key={supervisor.id} name="supervisor" onClick={(e) => this.handleSelection(e, supervisor)}>{supervisor.first_name + " " + supervisor.last_name}</Dropdown.Item>
-
+        ));
         let employees = this.state.employees.map(employee => (
-          <Dropdown.Item key={employee.id} name="employee" onClick={(e) => this.handleSelection(e, employee)}>{employee.first_name + " " + employee.last_name}</Dropdown.Item>
-        ))
+            <Dropdown.Item key={employee.id} name="employee" onClick={(e) => this.handleSelection(e, employee)}>{employee.first_name + " " + employee.last_name}</Dropdown.Item>
+        ));
         // let key = this.props.job.status;
         // let supervisors = supervisorOptions[key];
-        ));
+
 
         const data = [{ value:'One', selected:true }, { value: 'Two' }, { value:'Three' }]
 
@@ -160,9 +160,9 @@ class JobAdd extends React.Component {
                       {supervisors}
                   </Dropdown.Menu>
                 </Dropdown>
-
+                <br/>
                 <Multiselect className="select-materials" data={this.state.availableMaterials} multiple />
-
+                <br/>
                 <Dropdown>
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
                       {this.state.employee ? this.state.employee_assigned.first_name + " " + this.state.employee_assigned.last_name: 'Select Employee'}

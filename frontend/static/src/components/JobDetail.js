@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {NavLink} from "react-router-dom";
 
+
 // import divWithClassName from "react-bootstrap/es/utils/divWithClassName";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
@@ -23,11 +24,12 @@ class Comment extends React.Component {
     }
 
     render() {
+      // console.log(this.props);
         return (
             <form onSubmit={(e) => this.props.addComment(e, this.state.text)}>
                 <input type="text" name="text" value={this.state.text} onChange={this.handleInput}/>
                 <button>Save Comment</button>
-                  <button className="btn-light" value='edit'><NavLink className="edit" to="/jobs/edit">Edit</NavLink></button>
+
             </form>
         )
     }
@@ -117,7 +119,7 @@ class JobDetail extends React.Component {
     render() {
 
 
-        // console.log(this.state);
+        console.log(this.props);
         let employees = this.state.employees.map((employee) => {
             return <div key={employee.id}>{employee.username}</div>
         });
@@ -134,6 +136,7 @@ class JobDetail extends React.Component {
 
         return (
             <div>
+                <button className="btn-light" value='edit'><NavLink className="edit" to={`/jobs/edit/${this.props.match.params.id}/`}>Edit</NavLink></button>
                 <h3>{this.state.location}</h3>
                 <p>Supervisor- {this.state.supervisor.username}</p>
                 <p>Details- {this.state.details}</p>
@@ -149,6 +152,9 @@ class JobDetail extends React.Component {
                 <p>Comments:</p>
                 {comments}
                 <Comment addComment={this.addComment} />
+
+
+
             </div>
 
 

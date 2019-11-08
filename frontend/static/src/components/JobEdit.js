@@ -28,8 +28,9 @@ class JobEdit extends React.Component {
   }
 
   getJob = () => {
+    // console.log(this.props.match.params.id)
     // axios.get(`/api/v1/jobs/${this.props.match.params.id}`)
-    axios.get(`/api/v1/jobs/3/`, {
+    axios.get(`/api/v1/jobs/${this.props.match.params.id}/`, {
       headers: {
         'Authorization': `Token ${localStorage.getItem('token')}`
       }
@@ -49,6 +50,11 @@ class JobEdit extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+
+  handleDropdown = (status) => {
+
+    this.setState({status});
   }
 
   handleSubmit = (event) => {
@@ -75,7 +81,7 @@ class JobEdit extends React.Component {
   }
 
   handleDelete = () => {
-    axios.delete(`/api/v1/jobs/${this.state.id}`).then(response => {
+    axios.delete(`/api/v1/jobs/${this.props.match.params.id}`).then(response => {
       // handle success
       this.props.history.push('/schedule/')
 
@@ -87,6 +93,12 @@ class JobEdit extends React.Component {
 
   render() {
     console.log(this.state);
+
+    let statusOptions = {not_started: "Not Started", in_progress: "In Progress", complete: "Completed"}
+    let key = this.state.status;
+    let status = statusOptions[key];
+
+
     return (<div className="job_edit">
       <Row>
         <Col md={4}>
@@ -114,6 +126,20 @@ class JobEdit extends React.Component {
         </Col>
 
       </Row>
+
+
+      <Dropdown className="button">
+                <Dropdown.Toggle variant="success" id="dropdown-basic" onChange={this.handleStatus}>
+                    {status}
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => this.handleDropdown("not_started")}>Not Started</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.handleDropdown("in_progress")}>In Progress</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.handleDropdown("complete")}>Completed</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+
 
     </div>)
   }

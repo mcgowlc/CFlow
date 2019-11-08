@@ -25,7 +25,7 @@ ReactDOM.render(<BrowserRouter>
           <Route path="/accounts/register" component={Register}/>
           <Route path="/schedule/" component={JobList}/>
           <Route path="/jobs/new/" component={JobAdd} />
-          <Route path="/jobs/edit/" component={JobEdit} />
+          <Route path="/jobs/edit/:id/" component={JobEdit} />
           <Route path="/jobs/detail/:id/" component={JobDetail}/>
           // <Route path="/jobs/detail/:id/edit/" component={JobEdit} />
 

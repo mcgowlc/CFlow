@@ -179,8 +179,6 @@ AWS_STORAGE_BUCKET_NAME = 'drf-react-recipes'
 AWS_DEFAULT_ACL = None
 AWS_S3_FILE_OVERWRITE = False
 
-TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
-TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

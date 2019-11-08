@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import {NavLink} from "react-router-dom";
+
 // import divWithClassName from "react-bootstrap/es/utils/divWithClassName";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
@@ -25,6 +27,7 @@ class Comment extends React.Component {
             <form onSubmit={(e) => this.props.addComment(e, this.state.text)}>
                 <input type="text" name="text" value={this.state.text} onChange={this.handleInput}/>
                 <button>Save Comment</button>
+                  <button className="btn-light" value='edit'><NavLink className="edit" to="/jobs/edit">Edit</NavLink></button>
             </form>
         )
     }

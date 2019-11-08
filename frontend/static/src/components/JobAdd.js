@@ -38,7 +38,7 @@ class JobAdd extends React.Component {
    }
 
    handleSelection = (e, selection) => {
-       this.setState({[e.target.name]: selection});
+       this.setState({[e.target.name]: selection}, ()=>console.log(this.state));
    }
 
    handleSubmit = (e) => {
@@ -61,16 +61,19 @@ class JobAdd extends React.Component {
         formData.append('location',job.location);
         formData.append('details', job.details);
         formData.append('materials', JSON.stringify(job.materials));
-        // formData.append('supervisor', 12);
+        formData.append('supervisor', this.state.supervisor.id);
 
         axios({
             method: 'POST',
             url: 'http://localhost:3000/api/v1/jobs/',
-            data: formData
+            data: formData,
+            headers: {'Authorization': `Token ${localStorage.getItem('token')}`}
         })
             .then(res => {
                 console.log(res);
                 this.props.history.push('/schedule/');
+
+
             })
             .catch(error => {
                 console.log(error);
@@ -78,7 +81,7 @@ class JobAdd extends React.Component {
    }
 
    getSupervisors = () => {
-    axios.get(`${BASE_URL}/api/v1/supervisors/`)
+    axios.get(`/api/v1/supervisors/`, {headers: {'Authorization': `Token ${localStorage.getItem('token')}`}})
       .then(response => {
         console.log('response', response.data);
         this.setState({supervisors: response.data});
@@ -88,8 +91,8 @@ class JobAdd extends React.Component {
       })
   }
 
-     getEmployees = () => {
-        axios.get(`${BASE_URL}/api/v1/employees/`)
+    getEmployees = () => {
+        axios.get(`/api/v1/employees/`, {headers: {'Authorization': `Token ${localStorage.getItem('token')}`}})
           .then(response => {
             this.setState({availableEmployees: response.data});
           })
@@ -98,8 +101,8 @@ class JobAdd extends React.Component {
           })
   }
 
-  getMaterials = () => {
-         axios.get(`${BASE_URL}/api/v1/materials/`)
+    getMaterials = () => {
+         axios.get(`/api/v1/materials/`, {headers: {'Authorization': `Token ${localStorage.getItem('token')}`}})
           .then(response => {
             console.log('response', response.data);
             let availableMaterials = [...this.state.availableMaterials];
@@ -123,15 +126,20 @@ class JobAdd extends React.Component {
         console.log('state', this.state);
 
         let supervisors = this.state.supervisors.map(supervisor => (
-            <Dropdown.Item name="supervisor" onClick={(e) => this.handleSelection(e, supervisor)}>{supervisor.first_name + " " + supervisor.last_name}</Dropdown.Item>
+            <Dropdown.Item key={supervisor.id} name="supervisor" onClick={(e) => this.handleSelection(e, supervisor)}>{supervisor.first_name + " " + supervisor.last_name}</Dropdown.Item>
+
+        let employees = this.state.employees.map(employee => (
+          <Dropdown.Item key={employee.id} name="employee" onClick={(e) => this.handleSelection(e, employee)}>{employee.first_name + " " + employee.last_name}</Dropdown.Item>
+        ))
+        // let key = this.props.job.status;
+        // let supervisors = supervisorOptions[key];
         ));
 
-        // const data = [{ value:'One', selected:true }, { value: 'Two' }, { value:'Three' }]
+        const data = [{ value:'One', selected:true }, { value: 'Two' }, { value:'Three' }]
 
         return (
 
         <div className="add-job-form">
-        here i am
             <Row>
                 <Col md={4}>
             <form onSubmit={this.handleSubmit}>
@@ -155,13 +163,22 @@ class JobAdd extends React.Component {
 
                 <Multiselect className="select-materials" data={this.state.availableMaterials} multiple />
 
+                <Dropdown>
+                  <Dropdown.Toggle variant="success" id="dropdown-basic">
+                      {this.state.employee ? this.state.employee_assigned.first_name + " " + this.state.employee_assigned.last_name: 'Select Employee'}
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                      {employees}
+                  </Dropdown.Menu>
+                </Dropdown>
+
+
                 {/*<input type="text" name="employee_assigned" placeholder="Employee Assigned" value={this.state.employee_assigned} onChange={this.handleInput}/>*/}
                 <br/>
                 {/*<button>Save Job</button>*/}
-                <button name="save-and-add" onClick={this.handleSubmit}>Save and add another</button>
-                <button name="save" onClick={this.handleSubmit}>Save</button>
-
-
+                <button name="save-and-add">Save and add another</button>
+                <button name="save">Save</button>
             </form>
             </Col>
             <Col md={8}>

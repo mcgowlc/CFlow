@@ -17,10 +17,6 @@ function BaseLayout(props) {
                     <NavLink className="nav-link" to="/accounts/login">Login</NavLink>
                     <NavLink className="nav-link" to="/schedule">Schedule</NavLink>
                     <NavLink className="nav-link" to="/jobs/new">AddJob</NavLink>
-                    <NavLink className="nav-link" to="/jobs/edit">JobEdit</NavLink>
-                    
-
-
                 </ul>
             </div>
             {props.children}

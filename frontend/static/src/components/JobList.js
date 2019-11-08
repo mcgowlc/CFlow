@@ -35,7 +35,7 @@ class JobList extends React.Component {
   }
 
   updateStatus = (status, job) => {
-      axios.patch(`/api/v1/jobs/${job.id}/`,{status:status})
+      axios.patch(`/api/v1/jobs/${job.id}/`,{status:status}, {headers: {'Authorization': `Token ${localStorage.getItem('token')}`}})
       .then(response => {
         console.log('update sent', response.data);
         let jobs = [...this.state.jobs];
@@ -68,7 +68,7 @@ class JobList extends React.Component {
     return(<Table responsive>
               <thead className="head-item">
                 <tr className="ttr">
-                  <th>#</th>
+                  <th></th>
                   <th>Start Date</th>
                   <th>Location</th>
                   <th>Supervisor</th>

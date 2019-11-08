@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {ReactBootstrap, Table} from 'react-bootstrap-table';
-
 import BaseLayout from './components/BaseLayout';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -28,6 +27,8 @@ ReactDOM.render(<BrowserRouter>
           <Route path="/jobs/new/" component={JobAdd} />
           <Route path="/jobs/edit/" component={JobEdit} />
           <Route path="/jobs/detail/:id/" component={JobDetail}/>
+          // <Route path="/jobs/detail/:id/edit/" component={JobEdit} />
+
           <Route exact path="/" component={Home}/>
       </Switch>
   </BaseLayout>

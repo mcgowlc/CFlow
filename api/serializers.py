@@ -41,24 +41,24 @@ class MaterialSerializer( serializers.ModelSerializer ):
 
 class JobSerializer( serializers.ModelSerializer ):
     comments = CommentSerializer(many=True, required=False)
-    materials = MaterialSerializer(many=True, required=False, read_only=True)
-    employees = UserSerializer(many=True, required=False, read_only=True)
+    materials = MaterialSerializer(many=True, required=False)
+    employees = UserSerializer(many=True, required=False)
 
 
     # def is_valid(self, raise_exception=False):
     #     import pdb
     #     pdb.set_trace()
 
-    def validate(self, attrs):
-        # import pdb
-        # pdb.set_trace()
-        if 'materials' in attrs:
-            attrs['materials'] = json.loads(self.context['request'].data['materials'])
-        return attrs
+    # def validate(self, attrs):
+    #     # import pdb
+    #     # pdb.set_trace()
+    #     if 'materials' in attrs:
+    #         attrs['materials'] = json.loads(self.context['request'].data['materials'])
+    #     return attrs
 
-    # def create(self, validated_data):
-    #     import pdb
-    #     pdb.set_trace()
+    def create(self, validated_data):
+        import pdb
+        pdb.set_trace()
 
 
     class Meta:

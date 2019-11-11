@@ -19,7 +19,7 @@ class JobAdd extends React.Component {
             location: '',
             details: '',
             materials: [],
-            employee_assigned: '',
+            employee: '',
             supervisor: '',
             supervisors: [],
             employees: [],
@@ -165,7 +165,7 @@ class JobAdd extends React.Component {
                 <br/>
                 <Dropdown>
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {this.state.employee ? this.state.employee_assigned.first_name + " " + this.state.employee_assigned.last_name: 'Select Employee'}
+                      {this.state.employee ? this.state.employee.first_name + " " + this.state.employee.last_name: 'Select Employee'}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>

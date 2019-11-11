@@ -18,7 +18,11 @@ class JobEdit extends React.Component {
     this.state = {
       location: '',
       details: '',
-      status: ''
+      status: '',
+      materials: '',
+      start_date: '',
+      employees: '',
+      supervisor: ''
     }
 
   }
@@ -53,7 +57,7 @@ class JobEdit extends React.Component {
   }
 
   handleDropdown = (status) => {
-
+    console.log();
     this.setState({status});
   }
 
@@ -109,6 +113,12 @@ class JobEdit extends React.Component {
             <input type="text" name="details" placeholder="Details" value={this.state.details} onChange={this.handleInput}/>
             <br/>
             <input type="text" name="status" placeholder="Status" value={this.state.status} onChange={this.handleInput}/>
+            <br/>
+            <input type="text" name="materials" placeholder="Materials" value={this.state.materials} onChange={this.handleInput}/>
+            <br/>
+            <input type="text" name="employees" placeholder="Employees" value={this.state.employees} onChange={this.handleInput}/>
+            <br/>
+            <input type="text" name="supervisors" placeholder="Supervisors" value={this.state.supervisors} onChange={this.handleInput}/>
             <br/>
             <button>Save</button>
             <button type="button" onClick={this.handleDelete}>Delete</button>

@@ -136,7 +136,7 @@ class JobDetail extends React.Component {
 
         return (
             <div>
-                <button className="btn-light" value='edit'><NavLink className="edit" to={`/jobs/edit/${this.props.match.params.id}/`}>Edit</NavLink></button>
+                <button className="btn-light" value='edit'><NavLink className="edit" to={`/jobs/edit/${this.props.match.params.id}`}>Edit</NavLink></button>
                 <h3>{this.state.location}</h3>
                 <p>Supervisor- {this.state.supervisor.username}</p>
                 <p>Details- {this.state.details}</p>
@@ -146,7 +146,7 @@ class JobDetail extends React.Component {
                 <p>Materials:</p>
                 {materials}
                 <br/>
-                <p>Start Date- {this.state.start_date}</p>
+                <p>Start Date- {moment(this.props.job.start_date).format("LL")}</p>
                 <p>Job Status- {this.state.status}</p>
                 <br/>
                 <p>Comments:</p>

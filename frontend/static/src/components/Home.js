@@ -9,7 +9,6 @@ function Home(props) {
 
     // function based components use props instead of this.props
     // class based components you call this.props
-
     return (
         <div>
 

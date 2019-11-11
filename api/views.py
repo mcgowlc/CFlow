@@ -58,9 +58,10 @@ class JobAPIData( viewsets.ModelViewSet ):
     queryset = Job.objects.all()
     serializer_class = serializers.JobSerializer
 
-    # def get_queryset(self):
-    #     if self.request.user.is_superuser:
-    #         return Job.objects.all()
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Job.objects.all()
+            
     def perform_create(self, serializer):
         supervisor_id = self.request.data['supervisor']
         supervisor = User.objects.get( id=supervisor_id )

@@ -4,7 +4,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from django.db.models import Q
 from rest_framework import viewsets, generics
-# from .services import message_user
+from .services import message_user
 from rest_framework.response import Response
 from accounts.models import User
 from . import serializers
@@ -69,7 +69,7 @@ class JobViewSet( viewsets.ModelViewSet ):
         fields = '__all__'
 
 
-class JobAPIData( viewsets.ModelViewSet ):
+class JobAPIData(viewsets.ModelViewSet):
     queryset = Job.objects.all()
     serializer_class = serializers.JobSerializer
 
@@ -84,20 +84,19 @@ class JobAPIData( viewsets.ModelViewSet ):
         else:
             return Job.objects.filter(employees=self.request.user)
 
-
-    def perform_create(self, serializer):
-        supervisor_id = self.request.data['supervisor']
-        supervisor = User.objects.get( id=supervisor_id )
-        serializer.save( supervisor=supervisor )
-        # if current user is listed as the supervisor or as an assigned employee, show job
-        return Job.objects.filter( Q( supervisor=self.request.user ) | Q( employees=self.request.user )
-
     # def perform_update(self, serializer):
     #     instance = serializer.save()
     #     send_email_confirmation(user=self.request.user, modified=instance)
 
+    def perform_create(self, serializer):
+        supervisor_id = self.request.data['supervisor']
+        supervisor = User.objects.get(id=supervisor_id)
+        serializer.save( supervisor=supervisor )
+        # return Job.objects.filter( Q( supervisor=self.request.user ) | Q( employees=self.request.user )
 
-class MaterialAPIData( viewsets.ModelViewSet ):
+
+
+class MaterialAPIData(viewsets.ModelViewSet):
     queryset = Material.objects.all()
     serializer_class = serializers.MaterialSerializer
 

@@ -9,6 +9,10 @@ from rest_framework.response import Response
 from accounts.models import User
 from . import serializers
 from cflow.models import Job, Material, Comment
+# from rest_framework.permission import IsAuthenticated
+
+
+# @permission_classes((IsAuthenticated,))
 
 class CustomAuthToken(ObtainAuthToken):
 
@@ -50,6 +54,17 @@ class JobViewSet( viewsets.ModelViewSet ):
     queryset = Job.objects.all()
     serializer_class = serializers.JobSerializer
 
+    def get_queryset(self):
+        user = self.request.user
+
+        if self.request.user.is_staff:
+            # update this to return jobs that were created (employer) by logged in user
+            return JobItem.objects.filter(supervisor=user)
+        else:
+    #         # update this to only return the jobs of the logged in user
+    #         # something job.employees includes the logged in user
+            return JobItem.objects.filter(employees=user)
+
     class Meta:
         fields = '__all__'
 
@@ -61,7 +76,7 @@ class JobAPIData( viewsets.ModelViewSet ):
     def get_queryset(self):
         if self.request.user.is_superuser:
             return Job.objects.all()
-            
+
     def perform_create(self, serializer):
         supervisor_id = self.request.data['supervisor']
         supervisor = User.objects.get( id=supervisor_id )
@@ -84,16 +99,20 @@ class CommentAPIData( viewsets.ModelViewSet ):
         # pdb.set_trace()
         serializer.save( user=self.request.user )
 
-    # def get_queryset(self):
-    #     user = self.request.user
-    #
-    #     if self.request.user.is_staff:
-    #         # update this to return jobs that were created (employer) by logged in user
-    #         return JobItem.objects.all()
-    #     else:
+    # def current_user(request):
+    #     serializer = UserSerializer(request.user)
+    #     return Response(serializer.data)
+
+    def get_queryset(self):
+        user = self.request.user
+
+        if self.request.user.is_staff:
+            # update this to return jobs that were created (employer) by logged in user
+            return JobItem.objects.all()
+        else:
     #         # update this to only return the jobs of the logged in user
     #         # something job.employees includes the logged in user
-    #         return JobItem.objects.filter(employees=user)
+            return JobItem.objects.filter(employees=user)
 
 
 class TwilioAPIData( viewsets.ModelViewSet ):

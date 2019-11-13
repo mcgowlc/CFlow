@@ -52,6 +52,7 @@ class Login extends React.Component {
                                onChange={this.handleInput}/>
                                <br/>
                         <input type="submit" value="Login"/>
+
                         <br/>
                         <button className="btn-light" value='register'><NavLink className="register" to="/accounts/register">Register</NavLink></button>
                         </div>

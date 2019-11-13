@@ -45,6 +45,9 @@ class JobAdd extends React.Component {
         e.preventDefault();
         console.log(e.target.name);
 
+        var date = new Date('MM-DD-YYYY')
+      
+
         // let name = e.target.name;
         //
         // let location = this.state.location;

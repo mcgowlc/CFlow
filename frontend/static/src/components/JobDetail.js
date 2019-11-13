@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {NavLink} from "react-router-dom";
+import moment from 'moment';
 
 
 // import divWithClassName from "react-bootstrap/es/utils/divWithClassName";
@@ -146,7 +147,7 @@ class JobDetail extends React.Component {
                 <p>Materials:</p>
                 {materials}
                 <br/>
-                <p>Start Date- {moment(this.props.job.start_date).format("LL")}</p>
+                <p>Start Date- {moment(this.state.start_date).format("LL")}</p>
                 <p>Job Status- {this.state.status}</p>
                 <br/>
                 <p>Comments:</p>

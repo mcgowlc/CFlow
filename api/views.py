@@ -90,7 +90,11 @@ class JobAPIData( viewsets.ModelViewSet ):
         supervisor = User.objects.get( id=supervisor_id )
         serializer.save( supervisor=supervisor )
         # if current user is listed as the supervisor or as an assigned employee, show job
-        return Job.objects.filter( Q( supervisor=self.request.user ) | Q( employees=self.request.user ) )
+        return Job.objects.filter( Q( supervisor=self.request.user ) | Q( employees=self.request.user )
+
+    # def perform_update(self, serializer):
+    #     instance = serializer.save()
+    #     send_email_confirmation(user=self.request.user, modified=instance)
 
 
 class MaterialAPIData( viewsets.ModelViewSet ):

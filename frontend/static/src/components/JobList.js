@@ -68,6 +68,7 @@ class JobList extends React.Component {
     return(<Table responsive>
               <thead className="head-item">
                   <tr className="ttr">
+                  <th></th>
                   <th>Start Date</th>
                   <th>Location</th>
                   <th>Supervisor</th>

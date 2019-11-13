@@ -42,6 +42,7 @@ class JobItem extends React.Component {
         return (
     <tr className="schedule.color">
       <td className="schedule.list">{this.props.index}</td>
+      <td>#</td>
       <td>{moment(this.props.job.start_date).format("LL")}</td>
       <td><a href={"/jobs/detail/"+this.props.job.id}>{this.props.job.location}</a></td>
       <td>{this.props.job.supervisor.username}</td>

@@ -5,9 +5,8 @@ urlpatterns = [
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('rest-auth/login/', views.CustomAuthToken.as_view(), name='login'),
     path('rest-auth/', include('rest_auth.urls')),
-
+    # only pull jobs for logged in user
     path('jobs/', views.JobAPIData.as_view( {'get': 'list', 'post': 'create'} ) ),
-
 
     path('user/', views.UserViewSet.as_view( {'get': 'list'} ) ),
     path('jobs/<int:pk>/', views.JobViewSet.as_view( {'delete': 'destroy', 'get': 'retrieve','put': 'update', 'patch': 'partial_update'} ) ),

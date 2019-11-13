@@ -74,8 +74,16 @@ class JobAPIData( viewsets.ModelViewSet ):
     serializer_class = serializers.JobSerializer
 
     def get_queryset(self):
+        # bring back all jobs for logged in superuser
         if self.request.user.is_superuser:
             return Job.objects.all()
+        # bring back jobs for logged in supervisor
+        elif self.request.user.is_staff:
+            return Job.objects.filter(supervisor=self.request.user.id)
+        # bring back jobs for logged in employee
+        else:
+            return Job.objects.filter(employees=self.request.user)
+
 
     def perform_create(self, serializer):
         supervisor_id = self.request.data['supervisor']
@@ -117,7 +125,6 @@ class CommentAPIData( viewsets.ModelViewSet ):
 
 class TwilioAPIData( viewsets.ModelViewSet ):
     queryset = Material.objects.all()
-
     serializer_class = serializers.MaterialSerializer
 
     class Meta:

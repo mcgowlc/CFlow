@@ -9,8 +9,9 @@ urlpatterns = [
     path('jobs/', views.JobAPIData.as_view( {'get': 'list', 'post': 'create'} ) ),
 
     path('user/', views.UserViewSet.as_view( {'get': 'list'} ) ),
-    path('jobs/<int:pk>/', views.JobViewSet.as_view( {'delete': 'destroy', 'get': 'retrieve','put': 'update', 'patch': 'partial_update'} ) ),
+    # path('jobs/<int:pk>/', views.JobViewSet.as_view( {'delete': 'destroy', 'get': 'retrieve','put': 'update', 'patch': 'partial_update'} ) ),
     # path('jobs/<int:pk>/', views.JobAPIData.as_view( {'delete': 'destroy', 'get': 'retrieve', 'put': 'update'} ) ),
+    path('jobs/<int:pk>/', views.JobRetrieveUpdateDestroyAPIView.as_view(), name='job_retrieve_update_destroy'),
     path('materials/', views.MaterialAPIData.as_view({'get': 'list', 'post': 'create'})),
     path('materials/<int:pk>/', views.MaterialAPIData.as_view( {'delete': 'destroy', 'get': 'retrieve', 'put': 'update'} ) ),
     path('comments/', views.CommentAPIData.as_view({'get': 'list', 'post': 'create'})),

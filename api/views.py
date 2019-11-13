@@ -53,17 +53,24 @@ class JobViewSet( viewsets.ModelViewSet ):
     model = Job
     queryset = Job.objects.all()
     serializer_class = serializers.JobSerializer
+    # import pdb;
+    # pdb.set_trace();
 
     def get_queryset(self):
         user = self.request.user
 
         if self.request.user.is_staff:
             # update this to return jobs that were created (employer) by logged in user
-            return JobItem.objects.filter(supervisor=user)
+            return Job.objects.filter(supervisor=user)
         else:
     #         # update this to only return the jobs of the logged in user
     #         # something job.employees includes the logged in user
-            return JobItem.objects.filter(employees=user)
+            return Job.objects.filter(employees=user)
+
+    def partial_update(self, request, pk=None):
+            import pdb;
+            pdb.set_trace();
+
 
     class Meta:
         fields = '__all__'
@@ -94,6 +101,11 @@ class JobAPIData(viewsets.ModelViewSet):
         serializer.save( supervisor=supervisor )
         # return Job.objects.filter( Q( supervisor=self.request.user ) | Q( employees=self.request.user )
 
+
+class JobRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Job.objects.all()
+    serializer_class = serializers.JobSerializer
 
 
 class MaterialAPIData(viewsets.ModelViewSet):

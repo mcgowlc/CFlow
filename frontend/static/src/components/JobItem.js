@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import {Dropdown} from "react-bootstrap";
-import {Table} from 'react-bootstrap';
-import {Tab} from 'react-bootstrap';
+// import {Table} from 'react-bootstrap';
+// import {Tab} from 'react-bootstrap';
 import moment from 'moment';
 
 
@@ -32,17 +32,17 @@ class JobItem extends React.Component {
     // }
 
     handleStatus = (e) => {
-        console.log('event firing onchange')
+        console.log('event firing onchange');
+        console.log('Handle status event:', e)
     }
 
     render() {
-        let statusOptions = {not_started: "Not Started", "in_progress": "In Progress", "complete": "Completed"}
+        let statusOptions = {not_started: "Not Started", in_progress: "In Progress", complete: "Completed"}
         let key = this.props.job.status;
         let status = statusOptions[key];
         return (
     <tr className="schedule.color">
       <td className="schedule.list">{this.props.index}</td>
-      <td>#</td>
       <td>{moment(this.props.job.start_date).format("LL")}</td>
       <td><a href={"/jobs/detail/"+this.props.job.id}>{this.props.job.location}</a></td>
       <td>{this.props.job.supervisor.username}</td>

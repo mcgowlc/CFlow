@@ -56,13 +56,12 @@ class JobSerializer( serializers.ModelSerializer ):
     #         attrs['materials'] = json.loads(self.context['request'].data['materials'])
     #     return attrs
 
-    def create(self, validated_data):
-        import pdb
-        pdb.set_trace()
+    # def create(self, validated_data):
+    #     import pdb
+    #     pdb.set_trace()
 
 
     class Meta:
         model = Job
-        fields = (
-            'id', 'supervisor', 'employees', 'location', 'details', 'materials', 'start_date', 'status', 'comments')
+        fields = ('id', 'supervisor', 'employees', 'location', 'details', 'materials', 'start_date', 'status', 'comments')
         depth = 1

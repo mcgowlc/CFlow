@@ -35,6 +35,8 @@ class JobList extends React.Component {
   }
 
   updateStatus = (status, job) => {
+    console.log('Status: ', status)
+    console.log('Job: ', job)
       axios.patch(`/api/v1/jobs/${job.id}/`,{status:status}, {headers: {'Authorization': `Token ${localStorage.getItem('token')}`}})
       .then(response => {
         console.log('update sent', response.data);
@@ -44,7 +46,7 @@ class JobList extends React.Component {
         jobs[index].status = status;
         this.setState({jobs});
 
-        if(status === 'in progress, complete'){
+        if(status === 'in_progress' || status === 'complete'){
             axios.post(`/api/v1/twiliocall/`)
                 .then(function (response) {
                     console.log(response);
@@ -60,7 +62,7 @@ class JobList extends React.Component {
   }
 
   render() {
-    console.log('joblist component');
+    // console.log('joblist component');
     let rows = this.state.jobs.map((job) => {
       return <JobItem key={job.id} job={job} updateStatus={this.updateStatus}/>
     });

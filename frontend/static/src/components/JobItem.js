@@ -20,21 +20,17 @@ class JobItem extends React.Component {
       this.state = {
           status: ''
       }
-
-
     }
 
-
-
-    // let updateStatus = (event) => {
+    // updateStatus = (event) => {
     //   console.log(event.target.name)
-    //     this.props.
+    //
     // }
 
-    handleStatus = (e) => {
-        console.log('event firing onchange');
-        console.log('Handle status event:', e)
-    }
+    // handleStatus = (e) => {
+    //     console.log('event firing onchange');
+    //     console.log('Handle status event:', e)
+    // }
 
     render() {
         let statusOptions = {not_started: "Not Started", in_progress: "In Progress", complete: "Completed"}

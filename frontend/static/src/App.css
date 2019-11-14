@@ -125,7 +125,9 @@ button {
 .schedule-list {
   color: #050A30
 }
-
+.table td {
+  vertical-align: middle;
+}
 td {
   color: #050A30
 }
@@ -154,7 +156,7 @@ th {
 }
 
 .imgAddJob {
-  width: 70%;
+  width: 90%;
   margin-right: 50px;;
 }
 
@@ -186,4 +188,9 @@ h4 {
 
 .select-materials {
   display: none;
+}
+
+
+.select-employees{
+  display: none; 
 }

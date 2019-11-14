@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Col, Row, Dropdown } from 'react-bootstrap';
 import Multiselect from 'react-bootstrap-multiselect'
 
-const BASE_URL = process.env.REACT_APP_BASE_URL
+// const BASE_URL = process.env.REACT_APP_BASE_URL
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -45,8 +45,8 @@ class JobAdd extends React.Component {
         e.preventDefault();
         console.log(e.target.name);
 
-        var date = new Date('MM-DD-YYYY')
-      
+        // var date = new Date('MM-DD-YYYY')
+
 
         // let name = e.target.name;
         //
@@ -60,15 +60,21 @@ class JobAdd extends React.Component {
 
 
         let formData = new FormData();
-        formData.append( 'start_date',job.start_date);
-        formData.append('location',job.location);
-        formData.append('details', job.details);
-        formData.append('materials', JSON.stringify(job.materials));
+
+        let start_date = new Date(this.state.start_date);
+        start_date = start_date.toISOString();
+
+        formData.append( 'start_date',start_date);
+        formData.append('location',this.state.location);
+        formData.append('details', this.state.details);
+        formData.append('materials', JSON.stringify(this.state.materials));
         formData.append('supervisor', this.state.supervisor.id);
+
+        console.log('this state', this.state)
 
         axios({
             method: 'POST',
-            url: 'http://localhost:3000/api/v1/jobs/',
+            url: '/api/v1/jobs/',
             data: formData,
             headers: {'Authorization': `Token ${localStorage.getItem('token')}`}
         })
@@ -114,6 +120,7 @@ class JobAdd extends React.Component {
                 let obj = {};
                 obj.value = material.text;
                 availableMaterials.push(obj);
+                return obj
             });
 
             this.setState({availableMaterials});
@@ -138,45 +145,47 @@ class JobAdd extends React.Component {
         // let supervisors = supervisorOptions[key];
 
 
-        const data = [{ value:'One', selected:true }, { value: 'Two' }, { value:'Three' }]
+        // const data = [{ value:'One', selected:true }, { value: 'Two' }, { value:'Three' }]
 
         return (
 
         <div className="add-job-form">
             <Row>
                 <Col md={4}>
-            <form onSubmit={this.handleSubmit}>
-                <h4>Add Job</h4>
-                <input className="add-input" type="text" name="start_date" placeholder="Start Date" value={this.state.start_date} onChange={this.handleInput}/>
-                <br/>
-                <input type="text" name="location" placeholder="Location" value={this.state.location} onChange={this.handleInput}/>
-                <br/>
-                <textarea rows="5" type="text" name="details" placeholder="Details" value={this.state.details} onChange={this.handleInput}/>
-                <br/>
+            <form className="d-flex flex-column" onSubmit={this.handleSubmit}>
+              <h4>Add Job</h4>
+              <div className="d-flex flex-row">
+                <div>
+                  <input className="add-input" type="date" name="start_date" placeholder="Start Date" value={this.state.start_date} onChange={this.handleInput}/>
+                  <br/>
+                  <input className="" type="text" name="location" placeholder="Location" value={this.state.location} onChange={this.handleInput}/>
+                  <br/>
+                  <textarea rows="5" type="text" name="details" placeholder="Details" value={this.state.details} onChange={this.handleInput}/>
+                  <br/>
+                </div>
 
-                <Dropdown>
-                  <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {this.state.supervisor ? this.state.supervisor.first_name + " " + this.state.supervisor.last_name : 'Select Supervisor'}
-                  </Dropdown.Toggle>
+                <div>
+                  <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        {this.state.supervisor ? this.state.supervisor.first_name + " " + this.state.supervisor.last_name : 'Select Supervisor'}
+                    </Dropdown.Toggle>
 
-                  <Dropdown.Menu>
-                      {supervisors}
-                  </Dropdown.Menu>
-                </Dropdown>
-                <br/>
-                <Multiselect className="select-materials" data={this.state.availableMaterials} multiple />
-                <br/>
-                <Dropdown>
-                  <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {this.state.employee ? this.state.employee.first_name + " " + this.state.employee.last_name: 'Select Employee'}
-                  </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {supervisors}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        {this.state.employee ? this.state.employee.first_name + " " + this.state.employee.last_name: 'Select Employee'}
+                    </Dropdown.Toggle>
 
-                  <Dropdown.Menu>
-                      {employees}
-                  </Dropdown.Menu>
-                </Dropdown>
-
-
+                    <Dropdown.Menu>
+                        {employees}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  <Multiselect className="select-materials" data={this.state.availableMaterials} multiple />
+                </div>
+              </div>
                 {/*<input type="text" name="employee_assigned" placeholder="Employee Assigned" value={this.state.employee_assigned} onChange={this.handleInput}/>*/}
                 <br/>
                 {/*<button>Save Job</button>*/}
@@ -185,16 +194,16 @@ class JobAdd extends React.Component {
             </form>
             </Col>
             <Col md={8}>
-                <img className="imgAddJob"  src="https://blogin.co/uploads/images/naslovna.png" />
+                <img className="imgAddJob"  alt="add job" src="https://blogin.co/uploads/images/naslovna.png" />
 
             </Col>
             </Row>
             <Row className="boxImg">
                  <Col md={6}>
-                <img className="imgLeft"  src="https://osmaviation.com/app/uploads/2018/06/Crew-management_shnsrx.png" />
+                <img className="imgLeft" alt="left" src="https://osmaviation.com/app/uploads/2018/06/Crew-management_shnsrx.png" />
                  </Col>
                  <Col md={6}>
-                <img className="imgRight"  src="https://blogin.co/uploads/images/naslovna.png" />
+                <img className="imgRight" alt='right' src="https://blogin.co/uploads/images/naslovna.png" />
             </Col>
 
 

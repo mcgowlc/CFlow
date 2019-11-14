@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
+import logo from './../images/CFlowLogo.png'
 
 function BaseLayout(props) {
 
@@ -13,6 +14,9 @@ function BaseLayout(props) {
 
     return (
         <div>
+
+          <h1 className="text-center ">cflow</h1>
+          <img src={logo} alt=""/>
             <div className="nav">
                 <ul className="nav-bar">
                     <NavLink className="nav-link" to="/">Home Page</NavLink>
@@ -20,7 +24,7 @@ function BaseLayout(props) {
                     <NavLink className="nav-link" to="/accounts/login">Login</NavLink>
                     <NavLink className="nav-link" to="/accounts/login" onClick={logout}>Logout</NavLink>
                     <NavLink className="nav-link" to="/schedule">Schedule</NavLink>
-                    <NavLink className="nav-link" to="/jobs/new">AddJob</NavLink>
+                    <NavLink className="nav-link" to="/jobs/new">Add Job</NavLink>
                 </ul>
             </div>
             {props.children}

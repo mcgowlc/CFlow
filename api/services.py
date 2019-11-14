@@ -10,8 +10,8 @@ def message_user():
     client = Client(account_sid, auth_token)
 
     message = client.messages.create(
-        body='Job Completed',
-        from_='+18649700277',
+        body='Job Completed' 'Job in-progress',
+        from_='+12056273588',
         to='+18646843186'
     )
 

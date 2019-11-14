@@ -26,7 +26,7 @@ class JobList extends React.Component {
   getJobs = () => {
     axios.get(`/api/v1/jobs/`, {headers: {'Authorization': `Token ${localStorage.getItem('token')}`}})
       .then(response => {
-        // console.log('response', response.data);
+
         this.setState({jobs: response.data});
       })
       .catch(error => {
@@ -35,9 +35,7 @@ class JobList extends React.Component {
   }
 
   updateStatus = (status, job) => {
-    console.log('Status: ', status)
-    console.log('Job: ', job)
-      axios.patch(`/api/v1/jobs/${job.id}/`,{status:status}, {headers: {'Authorization': `Token ${localStorage.getItem('token')}`}})
+      axios.patch(`/api/v1/jobs/${job.id}/`, {status:status}, {headers: {'Authorization': `Token ${localStorage.getItem('token')}`}})
       .then(response => {
         console.log('update sent', response.data);
         let jobs = [...this.state.jobs];
@@ -66,7 +64,6 @@ class JobList extends React.Component {
     let rows = this.state.jobs.map((job) => {
       return <JobItem key={job.id} job={job} updateStatus={this.updateStatus}/>
     });
-
     return(<Table responsive>
               <thead className="head-item">
                   <tr className="ttr">

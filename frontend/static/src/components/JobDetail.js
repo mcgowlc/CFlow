@@ -119,7 +119,6 @@ class JobDetail extends React.Component {
 
     render() {
 
-
         console.log(this.props);
         let employees = this.state.employees.map((employee) => {
             return <div key={employee.id}>{employee.username}</div>
@@ -135,9 +134,13 @@ class JobDetail extends React.Component {
                 </div>
         })
 
+        // let supervisormood =  if(this.props.match.params.supervisor === JSON.parse(localStorage.getItem("token")).user_id){
+        //   <button className="btn-light" value='edit'><NavLink className="edit" to={`/jobs/edit/${this.props.match.params.id}`}>Edit</NavLink></button>
+        // }
+
         return (
             <div>
-                <button className="btn-light" value='edit'><NavLink className="edit" to={`/jobs/edit/${this.props.match.params.id}`}>Edit</NavLink></button>
+              <button className="btn-light" value='edit'><NavLink className="edit" to={`/jobs/edit/${this.props.match.params.id}`}>Edit</NavLink></button>
                 <h3>{this.state.location}</h3>
                 <p>Supervisor- {this.state.supervisor.username}</p>
                 <p>Details- {this.state.details}</p>

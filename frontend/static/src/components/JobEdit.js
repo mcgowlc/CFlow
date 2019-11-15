@@ -24,68 +24,81 @@ class JobEdit extends React.Component {
       materials: [],
       start_date: '',
       employees: [],
+      employee_assigned: [],
       supervisor: '',
       supervisors: [],
       comments: [],
-      availableMaterials: [],
+      availableMaterials: []
     }
 
   }
 
   componentDidMount() {
-      this.getJob();
+    this.getJob();
   }
 
   getSupervisors = () => {
-   axios.get(`/api/v1/supervisors/`, {headers: {'Authorization': `Token ${localStorage.getItem('token')}`}})
-     .then(response => {
-       console.log('response', response.data);
-       this.setState({supervisors: response.data});
-     })
-     .catch(error => {
-       console.log('Oops, something went wrong', error);
-     })
- }
+    axios.get(`/api/v1/supervisors/`, {
+      headers: {
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      }
+    }).then(response => {
+      console.log('response', response.data);
+      this.setState({supervisors: response.data});
+    }).catch(error => {
+      console.log('Oops, something went wrong', error);
+    })
+  }
 
-   getEmployees = () => {
-       axios.get(`/api/v1/employees/`, {headers: {'Authorization': `Token ${localStorage.getItem('token')}`}})
-         .then(response => {
-           console.log('response', response.data);
-           let employees = [...this.state.employees];
+  getEmployees = (employees_assigned) => {
+    axios.get(`/api/v1/employees/`, {
+      headers: {
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      }
+    }).then(response => {
+      console.log('response', response.data);
+      console.log('employees assigned', employees_assigned);
+      let employees = [...this.state.employees];
 
-           response.data.map(employee => {
-               let obj = {};
-               obj.value = employee.first_name + ' ' + employee.last_name;
-               employees.push(obj);
-               return obj
-           });
+      response.data.map(employee => {
+        let obj = {};
+        obj.value = employee.first_name + ' ' + employee.last_name;
+        for (let i = 0; i < employees_assigned.length; i++) {
+          if (employees_assigned[i].id === employee.id) {
+            obj.selected = true;
+          }
+        }
+        employees.push(obj);
+        return obj
+      });
 
-           this.setState({employees});
-         })
-         .catch(error => {
-           console.log('Oops, something went wrong', error);
-         })
- }
+      this.setState({employees});
+    }).catch(error => {
+      console.log('Oops, something went wrong', error);
+    })
+  }
 
-   getMaterials = () => {
-        axios.get(`/api/v1/materials/`, {headers: {'Authorization': `Token ${localStorage.getItem('token')}`}})
-         .then(response => {
-           console.log('response', response.data);
-           let availableMaterials = [...this.state.availableMaterials];
+  getMaterials = () => {
+    axios.get(`/api/v1/materials/`, {
+      headers: {
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      }
+    }).then(response => {
+      console.log('response', response.data);
+      let availableMaterials = [...this.state.availableMaterials];
 
-           response.data.map(material => {
-               let obj = {};
-               obj.value = material.text;
-               availableMaterials.push(obj);
-               return obj
-           });
+      response.data.map(material => {
+        let obj = {};
+        obj.value = material.text;
+        availableMaterials.push(obj);
+        return obj
+      });
 
-           this.setState({availableMaterials});
-         })
-         .catch(error => {
-           console.log('Oops, something went wrong', error);
-         })
- }
+      this.setState({availableMaterials});
+    }).catch(error => {
+      console.log('Oops, something went wrong', error);
+    })
+  }
 
   getJob = () => {
     // console.log(this.props.match.params.id)
@@ -98,11 +111,11 @@ class JobEdit extends React.Component {
       // handle success
       console.log('job response', response);
       let data = Object.assign(this.state, response.data);
-      this.setState({id: response.id})
+      this.setState({id: response.id, employees_assigned: response.data.employees, materials_assigned: response.data.materials})
       this.setState(data);
       this.getSupervisors();
       this.getMaterials();
-      this.getEmployees();
+      this.getEmployees(response.data.employees);
 
     }).catch(error => {
       // handle error
@@ -134,12 +147,11 @@ class JobEdit extends React.Component {
     let start_date = new Date(this.state.start_date);
     start_date = start_date.toISOString();
 
-    formData.append('start_date',start_date);
-    formData.append('location',this.state.location);
+    formData.append('start_date', start_date);
+    formData.append('location', this.state.location);
     formData.append('details', this.state.details);
-    formData.append('materials', JSON.stringify(this.state.materials));
+    formData.append('materials', JSON.stringify(this.state.materials_assigned));
     formData.append('supervisor', this.state.supervisor.id);
-
 
     axios.patch(`/api/v1/jobs/${this.state.id}/`, formData, {
       headers: {
@@ -169,27 +181,26 @@ class JobEdit extends React.Component {
   render() {
     // console.log(this.state);
 
-    let statusOptions = {not_started: "Not Started", in_progress: "In Progress", complete: "Completed"}
+    let statusOptions = {
+      not_started: "Not Started",
+      in_progress: "In Progress",
+      complete: "Completed"
+    }
     let key = this.state.status;
     let status = statusOptions[key];
 
     let materials = this.state.materials.map(material => <li key={material.id}>{material.text}</li>)
     // let employees = this.state.employees.map(employee => <li key={employee.id}>{employee.first_name}</li>)
 
-    let supervisors = this.state.supervisors.map(supervisor => (
-        <Dropdown.Item key={supervisor.id} name="supervisor" onClick={(e) => this.handleSelection(e, supervisor)}>{supervisor.first_name + " " + supervisor.last_name}</Dropdown.Item>
-    ));
-    let employees = this.state.employees.map(employee => (
-        <Dropdown.Item key={employee.id} name="employee" onClick={(e) => this.handleSelection(e, employee)}>{employee.first_name + " " + employee.last_name}</Dropdown.Item>
-    ));
-
+    let supervisors = this.state.supervisors.map(supervisor => (<Dropdown.Item key={supervisor.id} name="supervisor" onClick={(e) => this.handleSelection(e, supervisor)}>{supervisor.first_name + " " + supervisor.last_name}</Dropdown.Item>));
+    let employees = this.state.employees.map(employee => (<Dropdown.Item key={employee.id} name="employee" onClick={(e) => this.handleSelection(e, employee)}>{employee.first_name + " " + employee.last_name}</Dropdown.Item>));
 
     return (<div className="job_edit">
       <Row>
         <Col md={4}>
           <form onSubmit={this.handleSubmit} autoComplete="off">
             <h4>Edit Job</h4>
-              <div className="d-flex flex-row">
+            <div className="d-flex flex-row">
               <div>
                 <input className="add-input" type="date" name="start_date" placeholder="Start Date" value={this.state.start_date} onChange={this.handleInput}/>
                 <br/>
@@ -202,36 +213,27 @@ class JobEdit extends React.Component {
               <div>
                 <Dropdown>
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {this.state.supervisor ? this.state.supervisor.first_name + " " + this.state.supervisor.last_name : 'Select Supervisor'}
+                    {
+                      this.state.supervisor
+                        ? this.state.supervisor.first_name + " " + this.state.supervisor.last_name
+                        : 'Select Supervisor'
+                    }
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                      {supervisors}
+                    {supervisors}
                   </Dropdown.Menu>
                 </Dropdown>
                 Select Employees:
-                <Multiselect className="select-employees" data={this.state.employees} multiple />
-                <br />
+                <Multiselect className="select-employees" data={this.state.employees} multiple="multiple"/>
+                <br/>
                 Select Materials:
-                <Multiselect className="select-materials" data={this.state.availableMaterials} multiple />
+                <Multiselect className="select-materials" data={this.state.availableMaterials} multiple="multiple"/>
               </div>
             </div>
-              <button name="save">Save</button>
+            <button name="save">Save</button>
             <button type="button" onClick={this.handleDelete}>Delete</button>
 
-            <br/>
-            <br/>
-            <br/>
-
-            <Dropdown>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  {this.state.employee ? this.state.employee.first_name + " " + this.state.employee.last_name: 'Select Employee'}
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                  {employees}
-              </Dropdown.Menu>
-            </Dropdown>
           </form>
         </Col>
         <Col md={8}>
@@ -246,20 +248,6 @@ class JobEdit extends React.Component {
         </Col>
 
       </Row>
-
-
-      <Dropdown className="button">
-                <Dropdown.Toggle variant="success" id="dropdown-basic" onChange={this.handleStatus}>
-                    {status}
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => this.handleDropdown("not_started")}>Not Started</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.handleDropdown("in_progress")}>In Progress</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.handleDropdown("complete")}>Completed</Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
-
 
     </div>)
   }

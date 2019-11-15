@@ -122,9 +122,9 @@ class CommentAPIData( viewsets.ModelViewSet ):
         # pdb.set_trace()
         serializer.save( user=self.request.user )
 
-    # def current_user(request):
-    #     serializer = UserSerializer(request.user)
-    #     return Response(serializer.data)
+    def current_user(request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
 
     def get_queryset(self):
         user = self.request.user

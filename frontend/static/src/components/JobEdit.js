@@ -195,8 +195,10 @@ class JobEdit extends React.Component {
     let supervisors = this.state.supervisors.map(supervisor => (<Dropdown.Item key={supervisor.id} name="supervisor" onClick={(e) => this.handleSelection(e, supervisor)}>{supervisor.first_name + " " + supervisor.last_name}</Dropdown.Item>));
     let employees = this.state.employees.map(employee => (<Dropdown.Item key={employee.id} name="employee" onClick={(e) => this.handleSelection(e, employee)}>{employee.first_name + " " + employee.last_name}</Dropdown.Item>));
 
-    return (<div className="job_edit">
-      <Row>
+    return (<div className="job_edit" >
+    <img alt='burst communication process' src="http://remotework.works/wp-content/uploads/2018/06/BurstCommunicationProcess-1024x360.png"/>
+
+      <Row className="job_editRow">
         <Col md={4}>
           <form onSubmit={this.handleSubmit} autoComplete="off">
             <h4>Edit Job</h4>
@@ -237,17 +239,9 @@ class JobEdit extends React.Component {
           </form>
         </Col>
         <Col md={8}>
-          <img className="imgAddJob" alt='add job' src="https://blogin.co/uploads/images/naslovna.png"/>
-
         </Col>
       </Row>
-      <Row className="boxImg">
-        <Col md={6}></Col>
-        <Col md={8}>
-          <img alt='burst communication process' src="http://remotework.works/wp-content/uploads/2018/06/BurstCommunicationProcess-1024x360.png"/>
-        </Col>
 
-      </Row>
 
     </div>)
   }

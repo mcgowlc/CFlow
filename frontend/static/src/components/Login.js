@@ -41,7 +41,7 @@ class Login extends React.Component {
 
     render() {
         return (
-                <div className=" hero">
+                <div className="hero">
                     <div className="login-form">
                     <form  onSubmit={this.handleSubmit}>
                         <div className="container">
@@ -51,10 +51,10 @@ class Login extends React.Component {
                         <input type="password" name="password" placeholder="Enter password" value={this.state.password}
                                onChange={this.handleInput}/>
                                <br/>
-                        <input type="submit" value="Login"/>
+                        <input className="loginBtn" type="submit" value="Login"/>
 
                         <br/>
-                        <button className="btn-light" value='register'><NavLink className="register" to="/accounts/register">Register</NavLink></button>
+                        <button className="btn-light loginBtn" value='register'><NavLink className="register" to="/accounts/register">Register</NavLink></button>
                         </div>
                     </form>
 

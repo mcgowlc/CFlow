@@ -14,11 +14,11 @@ function Home(props) {
 
             {/*{props.children}*/}
 
-            <Carousel className="container">
+            <Carousel className="container p-4">
                 <Carousel>
                     <Carousel.Item >
                         <img
-                            className=" carousel-image"
+                            className="d-block w-100 carousel-image"
                             src="https://gravityjack.com/wp-content/uploads/2016/08/mobile-app-communication.jpg"
                             alt="First slide"
                         />

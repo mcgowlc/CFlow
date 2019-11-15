@@ -34,6 +34,30 @@
 ul{
   width: 100%;
 }
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.nav-bar {
+  padding:0;
+}
+.logo img {
+  width:6.5vw;
+  padding-right: 1rem;
+}
+.logo a {
+  color:#FABD37;
+  font-size: 1.75rem;
+  background-color: #0A052B;
+
+
+}
+.logo a:hover {
+  color:#409492;
+
+}
 .nav-bar {
 
     /*border: 1px solid #282c34;*/
@@ -78,9 +102,22 @@ button {
 .login-form{
   position: relative;
   width:30%;
-  margin-left: 10%;
   border: 3px solid #f1f1f1;
   /*padding-top: 10%;*/
+}
+.login-form form .container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 65%
+}
+.hero {
+  display: flex;
+  justify-content: center;
+}
+.loginBtn {
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 
@@ -154,10 +191,27 @@ th {
 th {
   color: #050A30;
 }
+.addJobForm {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  padding: 10px;
+}
+.jobSave {
+  color: white;
+  width: 50%;
+  border: solid #FABD37 2px;
+  background-color: #4EB5C3;
+}
+.jobAddDropdown button {
+  background-color: #4EB5C3;
+  width: 200px;
 
-.imgAddJob {
-  width: 90%;
-  margin-right: 50px;;
+}
+.addjobform {
+  justify-content: center;
+}
+.addJobTextArea {
+  margin: 5px;
 }
 
 .imgLeft {
@@ -169,8 +223,36 @@ th {
 }
 
 .boxImg {
-margin-top: 60px;
+  margin-top: 60px;
   margin-left: 100px;
+}
+.job_edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.job_editRow {
+  background: rgba(255, 255, 255, 0.5);
+  padding:15px;
+  border-radius: 10px;
+
+}
+.job_edit img {
+  width:50%;
+  border-radius: 10px;
+}
+.login-form {
+  /* background: rgba(255, 255, 255, 0.5); */
+  background: rgb(34,193,195);
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+  padding:15px;
+  border-radius: 10px;
+
+}
+.tableBg {
+  background: rgb(34,193,195);
+background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
 }
 /*.carousel.item {*/
 /*    -webkit-transition: -webkit-transform 2.7s ease-in-out !important;*/
@@ -192,5 +274,5 @@ h4 {
 
 
 .select-employees{
-  display: none; 
+  display: none;
 }

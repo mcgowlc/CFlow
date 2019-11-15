@@ -15,17 +15,21 @@ function BaseLayout(props) {
     return (
         <div>
 
-          <h1 className="text-center ">cflow</h1>
-          <img src={logo} alt=""/>
+
             <div className="nav">
                 <ul className="nav-bar">
+                  <div class="logo">
+                    <img src={logo} alt="" />
                     <NavLink className="nav-link" to="/">Home Page</NavLink>
                     {/*<NavLink className="nav-link" to="/accounts/register">Register</NavLink>*/}
                     <NavLink className="nav-link" to="/accounts/login">Login</NavLink>
                     <NavLink className="nav-link" to="/accounts/login" onClick={logout}>Logout</NavLink>
                     <NavLink className="nav-link" to="/schedule">Schedule</NavLink>
                     <NavLink className="nav-link" to="/jobs/new">Add Job</NavLink>
+                    </div>
+
                 </ul>
+
             </div>
             {props.children}
         </div>

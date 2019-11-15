@@ -64,7 +64,7 @@ class JobList extends React.Component {
     let rows = this.state.jobs.map((job) => {
       return <JobItem key={job.id} job={job} updateStatus={this.updateStatus}/>
     });
-    return(<Table responsive>
+    return(<Table responsive className="tableBg">
               <thead className="head-item">
                   <tr className="ttr">
                   <th></th>

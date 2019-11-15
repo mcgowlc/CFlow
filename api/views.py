@@ -9,7 +9,8 @@ from rest_framework.response import Response
 from accounts.models import User
 from . import serializers
 from cflow.models import Job, Material, Comment
-# from rest_framework.permission import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
+from .permissions import IsCreator
 
 
 # @permission_classes((IsAuthenticated,))
@@ -103,9 +104,10 @@ class JobAPIData(viewsets.ModelViewSet):
 
 
 class JobRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = [IsAuthenticated,IsCreator]
     queryset = Job.objects.all()
     serializer_class = serializers.JobSerializer
+    lookup_url_kwarg = 'job_id'
 
 
 class MaterialAPIData(viewsets.ModelViewSet):
@@ -122,9 +124,9 @@ class CommentAPIData( viewsets.ModelViewSet ):
         # pdb.set_trace()
         serializer.save( user=self.request.user )
 
-    def current_user(request):
-        serializer = UserSerializer(request.user)
-        return Response(serializer.data)
+    # def current_user(request):
+    #     serializer = UserSerializer(request.user)
+    #     return Response(serializer.data)
 
     def get_queryset(self):
         user = self.request.user

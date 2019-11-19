@@ -31,6 +31,8 @@ class JobEdit extends React.Component {
       availableMaterials: []
     }
 
+    this.handleSelection = this.handleSelection.bind(this)
+
   }
 
   componentDidMount() {
@@ -135,11 +137,12 @@ class JobEdit extends React.Component {
   }
 
   handleSubmit = (event) => {
+
     event.preventDefault();
     let data = {
       location: this.state.location,
       details: this.state.details,
-      status: this.state.status
+      status: this.state.status,
     }
 
     let formData = new FormData();
@@ -160,7 +163,9 @@ class JobEdit extends React.Component {
       }
     }).then(response => {
       // handle succes
+      console.log(response)
       this.setState(data);
+      this.props.history.push(`/jobs/detail/${this.state.id}/`)
     }).catch(error => {
       // handle error
       console.log(error);
@@ -176,6 +181,12 @@ class JobEdit extends React.Component {
       // handle error
       console.log(error);
     });
+  }
+
+  handleSelection = (e, selection) => {
+    this.setState({
+      [e.target.name]: selection
+    }, () => console.log(this.state));
   }
 
   render() {
@@ -226,20 +237,19 @@ class JobEdit extends React.Component {
                     {supervisors}
                   </Dropdown.Menu>
                 </Dropdown>
-                Select Employees:
-                <Multiselect className="select-employees" data={this.state.employees} multiple="multiple"/>
+                {/*Select Employees:*/}
+                {/*}<Multiselect className="select-employees" data={this.state.employees} multiple="multiple"/>*/}
                 <br/>
-                Select Materials:
-                <Multiselect className="select-materials" data={this.state.availableMaterials} multiple="multiple"/>
+                {/*Select Materials:
+                <Multiselect className="select-materials" data={this.state.availableMaterials} multiple="multiple"/>*/}
               </div>
             </div>
             <button name="save">Save</button>
-            <button type="button" onClick={this.handleDelete}>Delete</button>
+
 
           </form>
         </Col>
-        <Col md={8}>
-        </Col>
+
       </Row>
 
 

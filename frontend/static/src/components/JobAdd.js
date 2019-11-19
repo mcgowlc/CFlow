@@ -195,12 +195,12 @@ class JobAdd extends React.Component {
             </div>
             {/* <input type="text" name="employee_assigned" placeholder="Employee Assigned" value={this.state.employee_assigned} onChange={this.handleInput}/> */}
             <br/> {/* <button>Save Job</button> */}
-            <button className="jobSave" name=" save-and-add">Save and add another</button>
+            // <button className="jobSave" name=" save-and-add">Save and add another</button>
             <button className="jobSave" name="save">Save</button>
           </form>
         </Col>
       </Row>
-      
+
 
     </div>)
   }

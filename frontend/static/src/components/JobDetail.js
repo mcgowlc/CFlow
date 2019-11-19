@@ -90,6 +90,8 @@ class JobDetail extends React.Component {
 
     let comments = [...this.state.comments];
 
+    this.setState({comments});
+
     const options = {
       method: 'POST',
       headers: {
@@ -98,15 +100,24 @@ class JobDetail extends React.Component {
       data: {
         text: text,
         job: this.state.id,
-        user: 20
+        user: localStorage.getItem('user')
       },
-      url: `${BASE_URL}/api/v1/comments/`
+      url: `/api/v1/comments/`
     };
 
     axios(options).then(response => {
       console.log(response);
       comments.push(response.data);
       this.setState({comments});
+      axios.post(`/api/v1/twiliocall/`, {
+      message: response.data.text,
+      })
+          .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
     }).catch(error => {
       console.log(error);
     });
@@ -115,7 +126,7 @@ class JobDetail extends React.Component {
 
   render() {
 
-    console.log(this.props);
+    console.log('here', this.state);
     let employees = this.state.employees.map((employee) => {
       return <div key={employee.id}>{employee.username}</div>
     });

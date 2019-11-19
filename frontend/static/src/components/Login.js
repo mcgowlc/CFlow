@@ -30,7 +30,9 @@ class Login extends React.Component {
             .then(res => {
                 console.log(res);
               //save the token I get back once I succeefully login to localStorage
+              console.log('res', res.data)
               localStorage.setItem('token', res.data.token);
+              localStorage.setItem('user', res.data.user_id)
               // console.log('this', this)
               this.props.history.push('/schedule');
             })

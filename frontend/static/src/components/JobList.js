@@ -45,7 +45,9 @@ class JobList extends React.Component {
         this.setState({jobs});
 
         if(status === 'in_progress' || status === 'complete'){
-            axios.post(`/api/v1/twiliocall/`)
+            axios.post(`/api/v1/twiliocall/`, {
+            message: `job status changed to ${status}`,
+            })
                 .then(function (response) {
                     console.log(response);
                   })

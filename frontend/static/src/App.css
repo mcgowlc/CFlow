@@ -208,7 +208,8 @@ th {
 
 }
 .addjobform {
-  justify-content: center;
+  justify-content: left;
+  
 }
 .addJobTextArea {
   margin: 5px;

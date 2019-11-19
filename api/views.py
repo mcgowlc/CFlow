@@ -104,10 +104,10 @@ class JobAPIData(viewsets.ModelViewSet):
 
 
 class JobRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated,IsCreator]
+    # permission_classes = [IsAuthenticated,IsCreator]
     queryset = Job.objects.all()
     serializer_class = serializers.JobSerializer
-    lookup_url_kwarg = 'job_id'
+    # lookup_url_kwarg = 'job_id'
 
 
 class MaterialAPIData(viewsets.ModelViewSet):
@@ -149,6 +149,8 @@ class TwilioAPIData( viewsets.ModelViewSet ):
         field = '__all__'
 
     def create(self, request, *args, **kwargs):
-        message_user()
+        # import pdb; pdb.set_trace()
+        message = self.request.data['message']
+        message_user(message)
 
         return Response

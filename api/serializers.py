@@ -18,7 +18,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('id', 'text', 'user', 'job')
+        fields = '__all__'
 
         # def create(self, validated_data):
         #     # import pdb

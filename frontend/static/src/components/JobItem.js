@@ -33,6 +33,7 @@ class JobItem extends React.Component {
     // }
 
     render() {
+
         let statusOptions = {not_started: "Not Started", in_progress: "In Progress", complete: "Completed"}
         let key = this.props.job.status;
         let status = statusOptions[key];
@@ -41,9 +42,11 @@ class JobItem extends React.Component {
       <td className="schedule.list">{this.props.index}</td>
       <td>{moment(this.props.job.start_date).format("LL")}</td>
       <td><a href={"/jobs/detail/"+this.props.job.id}>{this.props.job.location}</a></td>
-      <td>{this.props.job.supervisor.username}</td>
+      <td>{`${this.props.job.supervisor.first_name} ${this.props.job.supervisor.last_name}`}</td>
+
+
       <td><Dropdown className="button">
-                <Dropdown.Toggle variant="success" id="dropdown-basic" onChange={this.handleStatus}>
+                <Dropdown.Toggle variant="success" id="dropdown-basic" onChange={this.props.handleStatus} hidden={this.props.job.supervisor.id != localStorage.getItem('user')}>
                     {status}
                 </Dropdown.Toggle>
 
@@ -53,6 +56,9 @@ class JobItem extends React.Component {
                     <Dropdown.Item name="complete" onClick={(e) => this.props.updateStatus("complete", this.props.job)}>Completed</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown></td>
+
+
+
     </tr>
   );
     }
